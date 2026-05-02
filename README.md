@@ -1,73 +1,67 @@
-# React + TypeScript + Vite
+# React Router (Tutorial) — Invoices App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto de estudo feito em **React + TypeScript + Vite**, seguindo o tutorial do **React Router** para praticar:
 
-Currently, two official plugins are available:
+- rotas aninhadas (nested routes)
+- rotas de índice (index routes)
+- parâmetros de rota (dynamic params)
+- query string (`search params`)
+- navegação programática (`useNavigate`)
+- página 404 (fallback com `*`)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Links
 
-## React Compiler
+- Repositório: [MiltonRafaeel/react-router](https://github.com/MiltonRafaeel/react-router)
+- Documentação / tutorial utilizado: [React Router v6.3.0 — Tutorial](https://reactrouter.com/6.3.0/getting-started/tutorial)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+> Observação: no `package.json` deste repositório a versão instalada é `react-router-dom@6.4.1`, mas a base do conteúdo segue o tutorial acima.
 
-## Expanding the ESLint configuration
+## Funcionalidades implementadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Layout base (`App`)** com navegação e `<Outlet />` para renderizar as rotas filhas
+- **Welcome (rota index `/`)**
+- **Expenses (`/expenses`)**
+- **Invoices (`/invoices`)**
+  - lista de invoices carregada de um “banco” em memória (`src/data.ts`)
+  - filtro por nome via query string `?name=...` usando `useSearchParams`
+  - links que **preservam** a query string ao navegar (componente `QueryLink`)
+  - destaque de link ativo via `NavLink` + classes CSS
+- **Invoice Details (`/invoices/:invoiceId`)**
+  - leitura do parâmetro `invoiceId` via `useParams`
+  - botão **Delete** remove a invoice do array em memória e navega de volta preservando a query string
+- **NotFound (`*`)** para qualquer rota inexistente
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Rotas
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Rota | Descrição |
+|------|-----------|
+| `/` | Welcome (index route) |
+| `/expenses` | Página Expenses |
+| `/invoices` | Lista de invoices + filtro `?name=` |
+| `/invoices/:invoiceId` | Detalhe de uma invoice |
+| `*` | NotFound |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Stack
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- React 18
+- TypeScript
+- Vite
+- React Router DOM 6
+- Yarn
+- ESLint
+- CSS
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Como rodar localmente (Yarn)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+```bash
+# 1) Clonar
+git clone https://github.com/MiltonRafaeel/react-router.git
+
+# 2) Entrar na pasta
+cd react-router
+
+# 3) Instalar dependências
+yarn
+
+# 4) Rodar em desenvolvimento
+yarn dev
